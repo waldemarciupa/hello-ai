@@ -13,8 +13,8 @@ export default async function handler(
 
   try {
     const token = await getToken(taskName!);
-    const cookie = await getTask(token);
-    const answer = await sendAnswer({ token, cookie });
+    const { cookie } = await getTask(token);
+    const answer = await sendAnswer({ token, answer: cookie });
     res.status(200).json({ data: answer });
   } catch (error: any) {
     return res.status(500).send({ data: error.message });

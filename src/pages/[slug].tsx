@@ -2,28 +2,22 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { Box, CircularProgress } from '@mui/material';
+import { getData } from '@/utils';
 
-export default function HelloApi() {
+export default function Moderation() {
   const router = useRouter();
-  const { pathname } = router;
-
-  const getHelloApi = async () => {
-    const response = await fetch('http://localhost:3000/api/helloapi');
-    const result = await response.json();
-    return result;
-  };
+  const { slug } = router.query;
 
   const { isLoading, data } = useQuery({
-    queryKey: ['helloapi'],
-    queryFn: getHelloApi,
+    queryKey: ['data', slug],
+    queryFn: () => getData(slug),
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     retry: false,
   });
 
   return (
     <div>
-      <div>{pathname}</div>
+      <div>{slug}</div>
       {isLoading && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />

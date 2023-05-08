@@ -1,5 +1,13 @@
 import { Layout } from '@/components/Layout';
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -10,6 +18,35 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <main>
+        <Typography>Tasks:</Typography>
+        <List>
+          <ListItem divider disableGutters>
+            <Link
+              href={{
+                pathname: '/helloapi',
+              }}
+              style={{ width: '100%' }}
+            >
+              <ListItemButton>
+                <ListItemText primary='helloapi' />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+          <ListItem divider disableGutters>
+            <Link
+              href={{
+                pathname: '/moderation',
+              }}
+              style={{ width: '100%' }}
+            >
+              <ListItemButton>
+                <ListItemText primary='moderation' />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        </List>
+      </main>
     </>
   );
 }

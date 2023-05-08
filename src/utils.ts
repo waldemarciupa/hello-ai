@@ -1,17 +1,20 @@
 export const getToken = async (taskName: string) => {
+  console.log('Get Token');
   try {
     const response = await fetch(
-      `${process.env.API_AIDEVS}/token/${taskName}`,
+      `${process.env.AIDEVS_API_URL}/token/${taskName}`,
       {
         method: 'POST',
         body: JSON.stringify({
-          apikey: process.env.API_KEY,
+          apikey: process.env.AIDEVS_API_KEY,
         }),
       }
     );
     const result = await response.json();
     if (response.ok) {
       const { token } = result;
+      console.log({ token });
+
       return token;
     } else {
       throw new Error(result.msg);
@@ -22,12 +25,14 @@ export const getToken = async (taskName: string) => {
 };
 
 export const getTask = async (token: string) => {
+  console.log('Get Task');
   try {
-    const response = await fetch(`${process.env.API_AIDEVS}/task/${token}`);
+    const response = await fetch(`${process.env.AIDEVS_API_URL}/task/${token}`);
     const result = await response.json();
+    console.log(result);
+
     if (response.ok) {
-      const { cookie } = result;
-      return cookie;
+      return result;
     } else {
       throw new Error(result.msg);
     }
@@ -38,20 +43,26 @@ export const getTask = async (token: string) => {
 
 export const sendAnswer = async ({
   token,
-  cookie,
+  answer,
 }: {
   token: string;
-  cookie: string;
+  answer: string | number[];
 }) => {
+  console.log('Send Answer');
   try {
-    const response = await fetch(`${process.env.API_AIDEVS}/answer/${token}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        answer: cookie,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.AIDEVS_API_URL}/answer/${token}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          answer: answer,
+        }),
+      }
+    );
     const result = await response.json();
     if (response.ok) {
+      console.log(result);
+
       const { msg } = result;
       return msg;
     } else {
@@ -60,4 +71,11 @@ export const sendAnswer = async ({
   } catch (error: any) {
     throw new Error(error);
   }
+};
+
+export const getData = async (slug: string | string[] | undefined) => {
+  console.log('getData');
+  const response = await fetch(`http://localhost:3000/api/${slug}`);
+  const result = await response.json();
+  return result;
 };

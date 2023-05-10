@@ -76,6 +76,12 @@ export const sendAnswer = async ({
 export const getData = async (slug: string | string[] | undefined) => {
   console.log('getData');
   const response = await fetch(`http://localhost:3000/api/${slug}`);
+  console.log(response);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
   const result = await response.json();
   return result;
 };

@@ -1,13 +1,6 @@
-import { Layout } from '@/components/Layout';
-import {
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import ListItem from '@/components/ListItem';
+import { List, Typography } from '@mui/material';
 import Head from 'next/head';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -21,30 +14,9 @@ export default function Home() {
       <main>
         <Typography>Tasks:</Typography>
         <List>
-          <ListItem divider disableGutters>
-            <Link
-              href={{
-                pathname: '/helloapi',
-              }}
-              style={{ width: '100%' }}
-            >
-              <ListItemButton>
-                <ListItemText primary='helloapi' />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem divider disableGutters>
-            <Link
-              href={{
-                pathname: '/moderation',
-              }}
-              style={{ width: '100%' }}
-            >
-              <ListItemButton>
-                <ListItemText primary='moderation' />
-              </ListItemButton>
-            </Link>
-          </ListItem>
+          <ListItem pathname='helloapi' />
+          <ListItem pathname='moderation' />
+          <ListItem pathname='inprompt' />
         </List>
       </main>
     </>

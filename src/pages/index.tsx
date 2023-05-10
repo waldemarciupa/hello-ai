@@ -17,6 +17,7 @@ export default function Home() {
           <ListItem pathname='helloapi' />
           <ListItem pathname='moderation' />
           <ListItem pathname='inprompt' />
+          <ListItem pathname='blogger' />
         </List>
       </main>
     </>

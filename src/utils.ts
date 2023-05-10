@@ -79,3 +79,34 @@ export const getData = async (slug: string | string[] | undefined) => {
   const result = await response.json();
   return result;
 };
+
+export const openAICompletion = async (
+  messages: { role: string; content: string }[]
+) => {
+  try {
+    console.log('Loading opeAICompletion');
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo', // gpt-4
+        max_tokens: 256,
+        temperature: 0.5,
+        messages,
+      }),
+    };
+
+    const response = await fetch(
+      `${process.env.OPENAI_API_URL}/v1/chat/completions`,
+      options
+    );
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

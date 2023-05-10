@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { Box, CircularProgress } from '@mui/material';
 import { getData } from '@/utils';
 
-export default function Moderation() {
-  const router = useRouter();
-  const { slug } = router.query;
+type PageProps = {};
+
+const Page = (props: PageProps) => {
+  const {
+    query: { slug },
+  } = useRouter();
 
   const { isLoading, data } = useQuery({
     queryKey: ['data', slug],
@@ -26,4 +29,6 @@ export default function Moderation() {
       {data && <p>Answer message: {data.data}</p>}
     </div>
   );
-}
+};
+
+export default memo(Page);

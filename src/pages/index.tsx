@@ -18,6 +18,7 @@ export default function Home() {
           <ListItem pathname='moderation' />
           <ListItem pathname='inprompt' />
           <ListItem pathname='blogger' />
+          <ListItem pathname='scraper' />
         </List>
       </main>
     </>

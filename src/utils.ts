@@ -1,31 +1,40 @@
 export const getToken = async (taskName: string) => {
-  console.log('Get Token');
+  console.log("Get Token");
   try {
     const response = await fetch(
       `${process.env.AIDEVS_API_URL}/token/${taskName}`,
       {
-        method: 'POST',
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           apikey: process.env.AIDEVS_API_KEY,
         }),
       }
     );
-    const result = await response.json();
-    if (response.ok) {
-      const { token } = result;
-      console.log({ token });
 
-      return token;
-    } else {
+    const result = await response.json();
+
+    if (!response.ok) {
       throw new Error(result.msg);
     }
-  } catch (error: any) {
-    throw new Error(error);
+
+    const { token } = result;
+    console.log({ token });
+
+    return token;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw error;
+    } else {
+      throw new Error("An unknown error occurred while getting the token.");
+    }
   }
 };
 
 export const getTask = async (token: string) => {
-  console.log('Get Task');
+  console.log("Get Task");
   try {
     const response = await fetch(`${process.env.AIDEVS_API_URL}/task/${token}`);
     const result = await response.json();
@@ -48,18 +57,20 @@ export const sendAnswer = async ({
   token: string;
   answer: string | number[];
 }) => {
-  console.log('Send Answer');
+  console.log("Send Answer", answer);
   try {
     const response = await fetch(
       `${process.env.AIDEVS_API_URL}/answer/${token}`,
       {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           answer: answer,
         }),
       }
     );
     const result = await response.json();
+    console.log("result", result);
+
     if (response.ok) {
       console.log(result);
 
@@ -74,7 +85,7 @@ export const sendAnswer = async ({
 };
 
 export const getData = async (slug: string | string[] | undefined) => {
-  console.log('getData');
+  console.log("getData");
   const response = await fetch(`http://localhost:3000/api/${slug}`);
   console.log(response);
 
@@ -90,16 +101,16 @@ export const openAICompletion = async (
   messages: { role: string; content: string }[]
 ) => {
   try {
-    console.log('Loading opeAICompletion');
+    console.log("Loading opeAICompletion");
 
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        "Content-Type": "application/json; charset=utf-8",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo', // gpt-4
+        model: "gpt-3.5-turbo", // gpt-4
         max_tokens: 256,
         temperature: 0.5,
         messages,
@@ -111,6 +122,7 @@ export const openAICompletion = async (
       options
     );
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error: any) {
     throw new Error(error);

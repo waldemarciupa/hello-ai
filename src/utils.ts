@@ -128,3 +128,32 @@ export const openAICompletion = async (
     throw new Error(error);
   }
 };
+
+export const openAIEmbedding = async (prompt: string) => {
+  try {
+    console.log("Loading openAIEmbedding");
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "text-embedding-ada-002",
+        input: prompt,
+      }),
+    };
+
+    const response = await fetch(
+      `${process.env.OPENAI_API_URL}/v1/embeddings`,
+      options
+    );
+    const result = await response.json();
+    console.log(result?.data[0]?.embedding.length);
+    console.log("Finished openAIEmbedding");
+    return result;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

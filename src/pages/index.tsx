@@ -20,6 +20,7 @@ export default function Home() {
           <ListItem pathname="blogger" />
           <ListItem pathname="scraper" />
           <ListItem pathname="liar" />
+          <ListItem pathname="embedding" />
         </List>
       </main>
     </>

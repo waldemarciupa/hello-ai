@@ -21,6 +21,7 @@ export default function Home() {
           <ListItem pathname="scraper" />
           <ListItem pathname="liar" />
           <ListItem pathname="embedding" />
+          <ListItem pathname="whisper" />
         </List>
       </main>
     </>

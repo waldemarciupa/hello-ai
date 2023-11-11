@@ -22,6 +22,7 @@ export default function Home() {
           <ListItem pathname="liar" />
           <ListItem pathname="embedding" />
           <ListItem pathname="whisper" />
+          <ListItem pathname="rodo" />
         </List>
       </main>
     </>

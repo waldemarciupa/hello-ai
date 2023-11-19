@@ -110,7 +110,7 @@ export const openAICompletion = async (
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo", // gpt-4
+        model: "gpt-4", // "gpt-3.5-turbo"
         max_tokens: 256,
         temperature: 0.5,
         messages,
@@ -122,7 +122,7 @@ export const openAICompletion = async (
       options
     );
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error: any) {
     throw new Error(error);
